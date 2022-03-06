@@ -24,5 +24,53 @@
             <version>5.6.0</version>
             <scope>test</scope>
         </dependency>
+        
+        <!--Hamcrest-->
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-library</artifactId>
+            <version>2.2</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
+    <!--mvn clean install a nivel del proyect-->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.7</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>test</phase>
+                        <goals> 
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                    </executions>
+            </plugin>
+            
+            <plugin><!--Maven invoca todas las fases antes de la fase de prueba y luego invoca los plugins--> <!--MVN CLEAN TEST-->
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.2</version>
+                <configuration>
+                    <includes>**/*Test.java</includes> <!--Especifica los patrones que una caso de prueba debe cumpli para ser ejecutado-->
+                </configuration>
+            </plugin>
+            
+            <plugin><!--MVN SITE maven-surefire-report-plugin-->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.11.0</version>
+            </plugin>
+            
+            
+        </plugins>
+    </build>
 </project>

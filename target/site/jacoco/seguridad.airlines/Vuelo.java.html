@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Vuelo.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">AirLines</a> &gt; <a href="index.source.html" class="el_package">seguridad.airlines</a> &gt; <span class="el_source">Vuelo.java</span></div><h1>Vuelo.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package seguridad.airlines;
+
+import java.util.HashSet;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+/**
+ *
+ * @author PC
+ */
+public class Vuelo {
+
+    private final String numeroVuelo;
+    private final int asientos;
+<span class="fc" id="L21">    private Set&lt;Pasajero&gt; pasajeros = new HashSet&lt;&gt;();</span>
+
+    private final static String flightNumberRegex = &quot;^[A-Z]{2}\\d{3,4}$&quot;;
+<span class="fc" id="L24">    private final static Pattern pattern = Pattern.compile(flightNumberRegex);</span>
+
+<span class="fc" id="L26">    public Vuelo(final String numeroVuelo, final int asientos) {</span>
+<span class="fc" id="L27">        Matcher matcher = pattern.matcher(numeroVuelo);</span>
+<span class="fc bfc" id="L28" title="All 2 branches covered.">        if (!matcher.matches()) {</span>
+<span class="fc" id="L29">            throw new RuntimeException(&quot;Invalid flight number&quot;);</span>
+        }
+<span class="fc" id="L31">        this.numeroVuelo = numeroVuelo;</span>
+<span class="fc" id="L32">        this.asientos = asientos;</span>
+<span class="fc" id="L33">    }</span>
+
+    public String getNumeroVuelo() {
+<span class="nc" id="L36">        return numeroVuelo;</span>
+    }
+
+    public int getNumeroPasajeros() {
+<span class="nc" id="L40">        return this.pasajeros.size();</span>
+    }
+
+    public boolean addPasajeros(final Pasajero pasajero) {
+<span class="nc bnc" id="L44" title="All 2 branches missed.">        if (getNumeroPasajeros() &gt;= this.asientos) {</span>
+<span class="nc" id="L45">            throw new RuntimeException(&quot;No hay suficientes asientos para el vuelo &quot; + getNumeroVuelo());</span>
+        }
+<span class="nc" id="L47">        return pasajeros.add(pasajero);</span>
+    }
+
+    public boolean removerPasajero(Pasajero pasajero) {
+<span class="nc" id="L51">        return pasajeros.remove(pasajero);</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
